@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>গোল্ডেন মার্ট</title>
+<meta name="description" content="শিশুদের শেখার বই, আঁকার বোর্ড ও খেলনা। ক্যাশ অন ডেলিভারি, সারা বাংলাদেশে হোম ডেলিভারি।">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e5a57">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Golden Mart">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="store.css">
+</head>
+<body class="store">
+<div class="wrap">
+  <div class="demo" id="demo" hidden></div>
+  <div class="top">
+    <div class="brand"><img src="logo.png" alt="লোগো" id="logo"><div><b id="shopName">গোল্ডেন মার্ট</b><small id="tagline"></small></div></div>
+    <button class="cartbtn inst" id="installBtn" type="button" hidden>অ্যাপ ইনস্টল</button>
+    <button class="cartbtn" id="topCart" type="button">কার্ট <i id="topCount">০</i></button>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1 id="heroTitle"></h1>
+      <p id="heroText"></p>
+      <a class="btn" href="#products">পণ্য দেখুন</a>
+    </div>
+    <div class="trio" id="trio" aria-hidden="true"></div>
+  </section>
+
+  <div class="strip" id="strip"></div>
+
+  <section id="products">
+    <div class="sec-h"><h2>আমাদের পণ্য</h2><span id="pcount"></span></div>
+    <div class="grid" id="grid"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
+  </section>
+
+  <ol class="how" aria-label="অর্ডার করার ধাপ">
+    <li><b>পছন্দ করুন</b><span>পণ্যের নিচের বাটনে ক্লিক করে কার্টে যোগ করুন।</span></li>
+    <li><b>ঠিকানা দিন</b><span>নাম, মোবাইল নম্বর ও পূর্ণ ঠিকানা লিখুন।</span></li>
+    <li><b>পণ্য হাতে পেয়ে টাকা দিন</b><span>অর্ডার করলেই আমরা ফোনে কনফার্ম করব। টাকা দিতে হবে ডেলিভারির সময়।</span></li>
+  </ol>
+
+  <footer>
+    <div>
+      <div class="id"><img src="logo.png" alt=""><div><h3 id="fName"></h3><span style="color:var(--muted)" id="fAddr"></span></div></div>
+      <p class="fine">অর্ডার বা পণ্য সম্পর্কে জানতে ফোন করুন বা মেসেজ দিন।</p>
+      <p class="fine"><a href="admin.html" class="alink">অ্যাডমিন লগইন</a></p>
+    </div>
+    <div>
+      <h3>যোগাযোগ</h3>
+      <div id="phones"></div>
+      <div class="clinks" id="links"></div>
+    </div>
+  </footer>
+</div>
+
+<a class="wafab" id="wafab" href="#" target="_blank" rel="noopener" hidden>WhatsApp</a>
+<div class="bar" id="bar" hidden><button class="btn" id="barBtn" type="button"><span id="barText"></span><span>কার্ট দেখুন ›</span></button></div>
+
+<div class="veil" id="veil" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <header><h2 id="cartTitle">আপনার কার্ট</h2><button class="x" id="close" type="button" aria-label="বন্ধ করুন">✕</button></header>
+    <div id="lines"></div>
+    <form id="checkout" novalidate>
+      <div class="areas" id="areas"></div>
+      <div class="sum num" id="sum"></div>
+      <div class="f">
+        <label class="field" for="nm">আপনার নাম<input id="nm" autocomplete="name" maxlength="80"></label>
+        <label class="field" for="ph">মোবাইল নম্বর<input id="ph" inputmode="tel" autocomplete="tel" placeholder="০১XXXXXXXXX"></label>
+        <label class="field" for="ad">পূর্ণ ঠিকানা (জেলা ও থানাসহ)<textarea id="ad" rows="2" autocomplete="street-address" maxlength="300"></textarea></label>
+        <label class="field" for="nt">অতিরিক্ত কিছু জানাতে চাইলে<input id="nt" maxlength="300"></label>
+        <div class="hp" aria-hidden="true"><label>Website<input id="web" tabindex="-1" autocomplete="off"></label></div>
+      </div>
+      <div class="err" id="err" role="alert"></div>
+      <div class="send"><button class="btn" id="place" type="submit">অর্ডার নিশ্চিত করুন (ক্যাশ অন ডেলিভারি)</button></div>
+      <p class="note" style="margin-top:10px" id="codNote"></p>
+    </form>
+    <div id="done" class="done" hidden></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script src="api.js"></script>
+<script src="store.js"></script>
+<script src="pwa.js"></script>
+</body>
+</html>

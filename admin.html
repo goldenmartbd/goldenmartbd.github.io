@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex,nofollow">
+<title>গোল্ডেন মার্ট অ্যাডমিন</title>
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest-admin.webmanifest">
+<meta name="theme-color" content="#0e5a57">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GM Admin">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+<section id="login" class="login" hidden>
+  <form id="lf" class="lbox" novalidate>
+    <img src="logo.png" alt="" width="84" height="84">
+    <h1>অ্যাডমিন লগইন</h1>
+    <p class="muted" id="lsub">শুধু দোকানের মালিকের জন্য</p>
+    <label class="field" for="lpw">পাসওয়ার্ড<input id="lpw" type="password" autocomplete="current-password"></label>
+    <label class="chk"><input type="checkbox" id="lrem"> এই ডিভাইসে মনে রাখুন</label>
+    <div class="err" id="lerr" role="alert"></div>
+    <button class="btn" type="submit" id="lbtn">লগইন</button>
+    <a class="muted" href="index.html">← দোকানের পেজে ফিরে যান</a>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <aside class="side noprint">
+    <div class="sbrand"><img src="logo.png" alt=""><div><b id="sName">গোল্ডেন মার্ট</b><small>অ্যাডমিন প্যানেল</small></div></div>
+    <nav id="nav" aria-label="মেনু"></nav>
+    <div class="sfoot">
+      <button type="button" id="installBtn" hidden>অ্যাপ ইনস্টল করুন</button>
+      <a href="index.html" target="_blank" rel="noopener">দোকান দেখুন ↗</a>
+      <button type="button" data-act="logout">লগআউট</button>
+    </div>
+  </aside>
+  <main>
+    <div class="demo noprint" id="demo" hidden>ডেমো মোড: ডেটা শুধু এই ব্রাউজারে আছে। Google Sheet যুক্ত করতে README দেখুন।</div>
+    <div class="mtop"><h1 id="vtitle"></h1><div class="acts noprint" id="vacts"></div></div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div id="modalHost"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script src="api.js"></script>
+<script src="admin.js"></script>
+<script src="pwa.js"></script>
+</body>
+</html>

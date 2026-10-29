@@ -1,0 +1,61 @@
+/* গোল্ডেন মার্ট – শেয়ার্ড থিম (স্টোর ও অ্যাডমিন দুটোতেই) */
+:root{
+  --bg:#f6f4ee; --surface:#ffffff; --tile:#efede3; --ink:#12302f; --muted:#587270;
+  --accent:#0e5a57; --on-accent:#ffffff; --gold:#a97a1f; --gold-soft:#f3e6c4; --line:#dcd8c8;
+  --bad:#b3261e; --good:#1a7f45; --warn:#9a6a00; --warn-soft:#fbefc9; --bad-soft:#fbe3e0; --good-soft:#dff3e6;
+  --display:'Noto Sans Bengali','Kalpurush','Nikosh','Vrinda','Shonar Bangla',sans-serif;
+  --body:'Noto Sans Bengali','Kalpurush','Nikosh','Vrinda','Shonar Bangla',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c1b1a; --surface:#142826; --tile:#e8ebe2; --ink:#eef1e8; --muted:#9bb3ae;
+  --accent:#5fc4b8; --on-accent:#08201e; --gold:#e3b758; --gold-soft:#2f2a14; --line:#244340;
+  --bad:#ff8a80; --good:#6fd39a; --warn:#f0c15a; --warn-soft:#3a3010; --bad-soft:#3b1b19; --good-soft:#12301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1b1a; --surface:#142826; --tile:#e8ebe2; --ink:#eef1e8; --muted:#9bb3ae;
+  --accent:#5fc4b8; --on-accent:#08201e; --gold:#e3b758; --gold-soft:#2f2a14; --line:#244340;
+  --bad:#ff8a80; --good:#6fd39a; --warn:#f0c15a; --warn-soft:#3a3010; --bad-soft:#3b1b19; --good-soft:#12301f; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);line-height:1.4;margin:0;text-wrap:balance;font-weight:700}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--accent)}
+img{max-width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:10px 18px;
+  background:var(--accent);color:var(--on-accent);font-weight:600;cursor:pointer;text-decoration:none;min-height:42px;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.soft{background:var(--tile);color:#12302f}
+.btn.wa{background:#1a7f45;color:#fff}
+.btn.danger{background:var(--bad);color:#fff}
+.btn.sm{min-height:34px;padding:5px 12px;font-size:.88rem;border-radius:10px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+
+.field{display:grid;gap:3px;font-size:.88rem;font-weight:500;min-width:0}
+.field input,.field textarea,.field select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;width:100%;min-width:0;font-weight:400}
+.field small{color:var(--muted);font-weight:400}
+.err{color:var(--bad);font-size:.9rem;min-height:1.3em}
+
+.veil{position:fixed;inset:0;z-index:100;background:rgba(5,20,18,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);color:var(--ink);width:100%;max-width:640px;max-height:92dvh;overflow:auto;border-radius:20px 20px 0 0;
+  padding:18px 18px calc(22px + env(safe-area-inset-bottom,0px))}
+.sheet.wide{max-width:860px}
+.sheet>header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.sheet h2{font-size:1.45rem}
+.x{border:0;background:var(--tile);color:#12302f;width:38px;height:38px;border-radius:50%;font-size:1.1rem;cursor:pointer;flex:none}
+@media (min-width:760px){.veil{align-items:center}.sheet{border-radius:20px}}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:200;
+  background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:.9rem;max-width:90vw;text-align:center}
+.badge{display:inline-block;border-radius:999px;padding:1px 10px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.b-new{background:var(--warn-soft);color:var(--warn)}
+.b-confirmed{background:var(--tile);color:#12302f}
+.b-shipped{background:#dbe8fb;color:#1b4a8a}
+.b-delivered{background:var(--good-soft);color:var(--good)}
+.b-cancelled{background:var(--bad-soft);color:var(--bad)}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .12s}.btn:active{transform:scale(.97)}}

@@ -54,7 +54,7 @@
   /* ---------- লগইন ---------- */
   function showLogin(msg) {
     $('app').hidden = true; $('login').hidden = false; $('lerr').textContent = msg || '';
-    if (GMApi.demo) $('lsub').textContent = 'ডেমো মোড: পাসওয়ার্ড ' + GMApi.demoPassword;
+    if (GMApi.demo) $('lsub').textContent = 'ডেমো মোড (Google Sheet এখনো যুক্ত হয়নি)';
   }
   function logout(silent) {
     st.pw = ''; st.db = null;

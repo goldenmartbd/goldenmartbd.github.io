@@ -164,10 +164,6 @@
       try { localStorage.setItem('gm_public_cache', JSON.stringify({ settings: r.settings, products: r.products })); } catch (e) {}
     });
   }
-  if (GMApi.demo) {
-    var dm = $('demo'); dm.hidden = false;
-    dm.innerHTML = 'ডেমো মোড: ডেটা শুধু এই ব্রাউজারে থাকে। <a href="admin.html">অ্যাডমিন প্যানেল</a> (পাসওয়ার্ড: ' + esc(GMApi.demoPassword) + ')';
-  }
   if (window.GM_VERSION && $('ver')) $('ver').textContent = 'সংস্করণ ' + GM_VERSION.version + ' · ' + GM_VERSION.date.split('-').reverse().join('/');
   applySettings();
   try { var cache = JSON.parse(localStorage.getItem('gm_public_cache') || 'null'); if (cache && GMApi.remote) { apply(cache); loaded = true; } } catch (e) {}

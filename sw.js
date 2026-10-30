@@ -1,5 +1,5 @@
 /* সার্ভিস ওয়ার্কার: নেটওয়ার্ক আগে, না পেলে সেভ করা কপি। API ও ফন্ট কখনো সেভ হয় না। */
-var V = 'gm-v3';
+var V = 'gm-v4';
 var CORE = ['./', 'index.html', 'admin.html', 'theme.css', 'store.css', 'admin.css', 'config.js', 'core.js', 'api.js', 'store.js', 'admin.js', 'pwa.js', 'version.js', 'logo.png', 'icon-192.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(V).then(function (c) { return Promise.all(CORE.map(function (u) { return c.add(u).catch(function () {}); })); }).then(function () { return self.skipWaiting(); }));

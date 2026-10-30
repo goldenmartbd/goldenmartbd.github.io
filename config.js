@@ -4,5 +4,5 @@
   উদাহরণ: API_URL: "https://script.google.com/macros/s/AKfycb.../exec"
 */
 window.GM_CONFIG = {
-  API_URL: ""
+  API_URL: "https://script.google.com/macros/s/AKfycbwYFIoV7fFUJYvx9zIT430RK-AEirFSRaXTB3Oe733aOWw0bnWGywQ6zGq_ebhNrs5y/exec"
 };

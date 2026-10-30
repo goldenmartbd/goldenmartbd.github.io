@@ -124,17 +124,26 @@ table.t{border-collapse:collapse;width:100%;font-size:.93rem}
 
 @media (max-width:900px){
   #app{grid-template-columns:minmax(0,1fr)}
-  .side{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;height:auto;flex-direction:row;align-items:center;padding:6px 8px;gap:8px;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto}
-  .sbrand small,.sfoot a{display:none}
-  .sbrand b{font-size:1rem;white-space:nowrap}.sbrand img{width:32px;height:32px}
-  #nav{flex-direction:row;gap:4px}
-  #nav button{width:auto;white-space:nowrap;padding:7px 12px}
-  .sfoot{margin:0 0 0 auto}
+  .mbar{display:flex;align-items:center;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-left,0px))}
+  .mbar b{font-family:var(--display);font-size:1.05rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .menubtn{border:0;background:var(--tile);color:#12302f;width:42px;height:42px;border-radius:12px;cursor:pointer;display:grid;place-items:center;flex:none}
+  .menubtn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+  .side{position:fixed;left:0;top:0;bottom:0;width:min(82vw,300px);height:100dvh;z-index:60;transform:translateX(-105%);visibility:hidden;
+    padding:calc(16px + env(safe-area-inset-top,0px)) 12px calc(16px + env(safe-area-inset-bottom,0px));overflow:auto;box-shadow:8px 0 30px rgba(0,0,0,.3)}
+  #app.menu-open .side{transform:none;visibility:visible}
+  #app.menu-open .scrim{display:block}
+  #nav button{padding:12px;font-size:1rem}
+  .sfoot a,.sfoot button{padding:10px;text-align:center}
+  .sfoot a{border:1px solid var(--line);border-radius:10px;text-decoration:none}
   .orow{grid-template-columns:minmax(0,1fr) auto}
   .orow .items{grid-column:1/-1}
   .il{grid-template-columns:minmax(0,1fr) 60px 80px 34px}.il .lt{display:none}
 }
 body.admin::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--surface)}
+@media (min-width:901px){.mbar{display:none}}
+.scrim{display:none;position:fixed;inset:0;background:rgba(5,20,18,.5);z-index:55}
+@media (min-width:901px){.scrim{display:none!important}}
+@media (prefers-reduced-motion:no-preference){@media (max-width:900px){.side{transition:transform .22s ease,visibility .22s}}}
 
 @media print{
   body.admin{background:#fff;padding:0}
@@ -153,3 +162,5 @@ body.admin::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area
 }
 
 .sfoot #installBtn{border:1px solid var(--gold);background:var(--gold-soft);color:var(--gold);border-radius:10px;padding:7px;cursor:pointer;font-weight:600}
+
+.sfoot .ver{border:0;background:none;color:var(--muted);font-size:.8rem;padding:4px;text-decoration:underline;cursor:pointer}

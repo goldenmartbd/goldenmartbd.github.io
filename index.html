@@ -23,7 +23,7 @@
   <div class="top">
     <div class="brand"><img src="logo.png" alt="লোগো" id="logo"><div><b id="shopName">গোল্ডেন মার্ট</b><small id="tagline"></small></div></div>
     <button class="cartbtn inst" id="installBtn" type="button" hidden>অ্যাপ ইনস্টল</button>
-    <button class="cartbtn" id="topCart" type="button">কার্ট <i id="topCount">০</i></button>
+    <button class="cartbtn" id="topCart" type="button">কার্ট <i id="topCount">0</i></button>
   </div>
 
   <section class="hero">
@@ -52,7 +52,7 @@
     <div>
       <div class="id"><img src="logo.png" alt=""><div><h3 id="fName"></h3><span style="color:var(--muted)" id="fAddr"></span></div></div>
       <p class="fine">অর্ডার বা পণ্য সম্পর্কে জানতে ফোন করুন বা মেসেজ দিন।</p>
-      <p class="fine"><a href="admin.html" class="alink">অ্যাডমিন লগইন</a></p>
+      <p class="fine"><a href="admin.html" class="alink">অ্যাডমিন লগইন</a> · <span id="ver"></span></p>
     </div>
     <div>
       <h3>যোগাযোগ</h3>
@@ -74,7 +74,7 @@
       <div class="sum num" id="sum"></div>
       <div class="f">
         <label class="field" for="nm">আপনার নাম<input id="nm" autocomplete="name" maxlength="80"></label>
-        <label class="field" for="ph">মোবাইল নম্বর<input id="ph" inputmode="tel" autocomplete="tel" placeholder="০১XXXXXXXXX"></label>
+        <label class="field" for="ph">মোবাইল নম্বর<input id="ph" inputmode="tel" autocomplete="tel" placeholder="01XXXXXXXXX"></label>
         <label class="field" for="ad">পূর্ণ ঠিকানা (জেলা ও থানাসহ)<textarea id="ad" rows="2" autocomplete="street-address" maxlength="300"></textarea></label>
         <label class="field" for="nt">অতিরিক্ত কিছু জানাতে চাইলে<input id="nt" maxlength="300"></label>
         <div class="hp" aria-hidden="true"><label>Website<input id="web" tabindex="-1" autocomplete="off"></label></div>
@@ -89,6 +89,7 @@
 <div class="toast" id="toast" hidden></div>
 
 <script src="config.js"></script>
+<script src="version.js"></script>
 <script src="core.js"></script>
 <script src="api.js"></script>
 <script src="store.js"></script>

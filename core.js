@@ -34,23 +34,23 @@ var GM = (function () {
 
   var SEED = [
     { id: 'p-magic', name: 'সুকন্যার Magic লেখা শেখার বই', tag: 'শেখার বই', price: 150, cost: 0, stock: 10,
-      desc: '“একের ভিতর সব”। ৩+ বছর বয়সীদের জন্য লেখা শেখার স্পাইরাল বই।',
+      desc: '“একের ভিতর সব”। 3+ বছর বয়সীদের জন্য লেখা শেখার স্পাইরাল বই।',
       features: ['স্বরবর্ণ', 'ব্যঞ্জনবর্ণ', 'Alphabet', 'সংখ্যা', 'Number', 'আরবি', 'ড্রয়িং'] },
     { id: 'p-water', name: 'Magic Water Book', tag: 'আঁকা', price: 0, cost: 0, stock: 10,
       desc: 'শুধু পানি দিয়ে আঁকা যায়। রং ছড়ানোর ঝামেলা নেই, বারবার ব্যবহার করা যায়।',
       features: ['পানির কলম', 'বারবার আঁকা', 'স্পাইরাল বাঁধাই'] },
     { id: 'p-ayan', name: 'Ayan Intelligence Study Book', tag: 'সাউন্ড বই', price: 0, cost: 0, stock: 10,
-      desc: 'বাটন চাপলেই উচ্চারণ শোনা যায়। ৩+ বছর বয়সীদের জন্য ৭৪+ কনটেন্ট।',
+      desc: 'বাটন চাপলেই উচ্চারণ শোনা যায়। 3+ বছর বয়সীদের জন্য 74+ কনটেন্ট।',
       features: ['Bangla', 'Alphabet', 'Number', 'Arabic', 'Recording'] },
     { id: 'p-zayan', name: 'Zayan Intelligence Book (Extra Large)', tag: 'সাউন্ড বই', price: 0, cost: 0, stock: 10,
-      desc: '১২×১৩ ইঞ্চি বড় সাইজ, ৬২ পৃষ্ঠা, নতুন আপডেট ভার্সন। পরিষ্কার ডিজাইনে সহজ শেখা।',
+      desc: '12×13 ইঞ্চি বড় সাইজ, 62 পৃষ্ঠা, নতুন আপডেট ভার্সন। পরিষ্কার ডিজাইনে সহজ শেখা।',
       features: ['বাংলা বর্ণমালা', 'ইংরেজি ছড়া', 'আরবি', 'Voice Recording', 'Puzzle matching'] },
     { id: 'p-tablet', name: 'LCD রাইটিং ট্যাবলেট', tag: 'আঁকা', price: 0, cost: 0, stock: 10,
       desc: 'লিখুন, আঁকুন, এক ক্লিকে মুছে আবার শুরু করুন। কাগজ ও কালির খরচ নেই।',
       features: ['কলমসহ', 'লাল', 'সবুজ', 'নীল', 'কালো', 'সাদা'] },
-    { id: 'p-board', name: '২-ইন-১ কাঠের এডুকেশন বোর্ড', tag: 'শেখার বোর্ড', price: 0, cost: 0, stock: 10,
+    { id: 'p-board', name: '2-ইন-1 কাঠের এডুকেশন বোর্ড', tag: 'শেখার বোর্ড', price: 0, cost: 0, stock: 10,
       desc: 'এক পাশে ব্ল্যাকবোর্ড, অন্য পাশে বাংলা ও ইংরেজি বর্ণ, সংখ্যা, ঘড়ি আর আবাকাস।',
-      features: ['ব্ল্যাকবোর্ড', 'বাংলা বর্ণ', 'A–Z', '১–২০', 'ঘড়ি', 'আবাকাস'] },
+      features: ['ব্ল্যাকবোর্ড', 'বাংলা বর্ণ', 'A–Z', '1–20', 'ঘড়ি', 'আবাকাস'] },
     { id: 'p-bird', name: 'টকিং বার্ড (খাঁচাসহ)', tag: 'খেলনা', price: 0, cost: 0, stock: 10,
       desc: 'আপনার কথা রিপিট করে, মিষ্টি পাখির ডাক শোনায়। সহজ সুইচ, শিশুদের জন্য নিরাপদ।',
       features: ['কথা রিপিট করে', 'পাখির ডাক', 'সহজ সুইচ'] }
@@ -175,7 +175,7 @@ var GM = (function () {
     var name = str(d.customerName, 80), phone = normPhone(d.phone), address = str(d.address, 300);
     if (!admin) {
       if (!name) throw err('নাম লিখুন।');
-      if (!validPhone(phone)) throw err('১১ সংখ্যার সঠিক মোবাইল নম্বর লিখুন।');
+      if (!validPhone(phone)) throw err('11 সংখ্যার সঠিক মোবাইল নম্বর লিখুন।');
       if (address.length < 8) throw err('জেলা ও থানাসহ পূর্ণ ঠিকানা লিখুন।');
     } else {
       if (!name) name = 'ক্যাশ কাস্টমার';
@@ -348,7 +348,7 @@ var GM = (function () {
   function auth(req, store, env) {
     var pw = store.secret('adminPassword');
     if (!pw) throw err('অ্যাডমিন পাসওয়ার্ড সেট করা নেই। Apps Script-এ setup() চালান।');
-    if (env.isBlocked && env.isBlocked()) throw err('অনেকবার ভুল হয়েছে। ১০ মিনিট পরে আবার চেষ্টা করুন।');
+    if (env.isBlocked && env.isBlocked()) throw err('অনেকবার ভুল হয়েছে। 10 মিনিট পরে আবার চেষ্টা করুন।');
     if (String(req.password || '') !== String(pw)) {
       if (env.fail) env.fail();
       throw err('পাসওয়ার্ড ভুল।');
@@ -410,7 +410,7 @@ var GM = (function () {
           case 'deleteExpense': store.del('expenses', str(d.id)); return ok();
           case 'saveSettings': return ok({ settings: saveSettings(d, store) });
           case 'changePassword':
-            if (str(d.newPassword).length < 6) throw err('নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।');
+            if (str(d.newPassword).length < 6) throw err('নতুন পাসওয়ার্ড কমপক্ষে 6 অক্ষরের হতে হবে।');
             store.setSecret('adminPassword', str(d.newPassword));
             return ok();
         }

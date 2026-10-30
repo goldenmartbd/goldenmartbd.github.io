@@ -7,7 +7,7 @@
   try { cart = JSON.parse(localStorage.getItem('gm_cart') || '{}') || {}; } catch (e) { cart = {}; }
   var PLACEHOLDER = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#e8e4d4"/><text x="60" y="68" font-size="40" text-anchor="middle" fill="#a97a1f">★</text></svg>');
 
-  function bn(n) { return String(n).replace(/\d/g, function (d) { return '০১২৩৪৫৬৭৮৯'[d]; }); }
+  function bn(n) { return String(n); }
   function tk(n) { return '৳' + bn(Math.round(n * 100) / 100); }
   function byId(id) { return P.filter(function (p) { return p.id === id; })[0]; }
   function img(p) { return p.image ? GM.imgPath(p.image) : PLACEHOLDER; }
@@ -120,7 +120,7 @@
   function validate() {
     var err = '';
     if (!$('nm').value.trim()) err = 'আপনার নাম লিখুন।';
-    else if (!GM.validPhone(GM.normPhone($('ph').value))) err = '১১ সংখ্যার সঠিক মোবাইল নম্বর লিখুন (যেমন ০১৭XXXXXXXX)।';
+    else if (!GM.validPhone(GM.normPhone($('ph').value))) err = '11 সংখ্যার সঠিক মোবাইল নম্বর লিখুন (যেমন 017XXXXXXXX)।';
     else if ($('ad').value.trim().length < 8) err = 'জেলা ও থানাসহ পূর্ণ ঠিকানা লিখুন।';
     $('err').textContent = err; return !err;
   }
@@ -168,6 +168,7 @@
     var dm = $('demo'); dm.hidden = false;
     dm.innerHTML = 'ডেমো মোড: ডেটা শুধু এই ব্রাউজারে থাকে। <a href="admin.html">অ্যাডমিন প্যানেল</a> (পাসওয়ার্ড: ' + esc(GMApi.demoPassword) + ')';
   }
+  if (window.GM_VERSION && $('ver')) $('ver').textContent = 'সংস্করণ ' + GM_VERSION.version + ' · ' + GM_VERSION.date.split('-').reverse().join('/');
   applySettings();
   try { var cache = JSON.parse(localStorage.getItem('gm_public_cache') || 'null'); if (cache && GMApi.remote) { apply(cache); loaded = true; } } catch (e) {}
   refresh();

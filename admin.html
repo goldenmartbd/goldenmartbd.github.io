@@ -33,13 +33,16 @@
 </section>
 
 <div id="app" hidden>
-  <aside class="side noprint">
+  <header class="mbar noprint"><button class="menubtn" type="button" data-act="menu" aria-label="মেনু খুলুন" aria-controls="side"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><img src="logo.png" alt="" width="32" height="32"><b id="mName">গোল্ডেন মার্ট</b></header>
+  <div class="scrim noprint" data-act="closeMenu"></div>
+  <aside class="side noprint" id="side">
     <div class="sbrand"><img src="logo.png" alt=""><div><b id="sName">গোল্ডেন মার্ট</b><small>অ্যাডমিন প্যানেল</small></div></div>
     <nav id="nav" aria-label="মেনু"></nav>
     <div class="sfoot">
       <button type="button" id="installBtn" hidden>অ্যাপ ইনস্টল করুন</button>
       <a href="index.html" target="_blank" rel="noopener">দোকান দেখুন ↗</a>
       <button type="button" data-act="logout">লগআউট</button>
+      <button type="button" class="ver" data-act="about" id="verBtn"></button>
     </div>
   </aside>
   <main>
@@ -53,6 +56,7 @@
 <div class="toast" id="toast" hidden></div>
 
 <script src="config.js"></script>
+<script src="version.js"></script>
 <script src="core.js"></script>
 <script src="api.js"></script>
 <script src="admin.js"></script>

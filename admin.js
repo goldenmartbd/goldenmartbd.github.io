@@ -21,7 +21,7 @@
 
   /* ---------- সহায়ক ---------- */
   function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[n] + '</svg>'; }
-  function bn(n) { return String(n).replace(/\d/g, function (d) { return '০১২৩৪৫৬৭৮৯'[d]; }); }
+  function bn(n) { return String(n); }
   function nf(n) { n = Math.round((Number(n) || 0) * 100) / 100; return bn(n.toLocaleString('en-US')); }
   function tk(n) { var v = Number(n) || 0; return (v < 0 ? '−' : '') + '৳' + nf(Math.abs(v)); }
   function today() { return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Dhaka' }); }
@@ -84,9 +84,19 @@
       '</h2><button class="x" type="button" data-act="closeModal" aria-label="বন্ধ করুন">✕</button></header>' + body + '</div></div>';
     var f = document.querySelector('#modalHost input:not([type=hidden]),#modalHost select,#modalHost textarea'); if (f && !/^(date|checkbox|file)$/.test(f.type)) f.focus();
   }
+  function dmy(s) { return String(s).split('-').reverse().join('/'); }
+  function aboutModal() {
+    var V = window.GM_VERSION || { version: '', date: '', log: [] };
+    openModal('সংস্করণ ও আপডেট', '<p style="margin:0 0 10px"><b>বর্তমান সংস্করণ ' + esc(V.version) + '</b> · ' + dmy(V.date) + '</p>' +
+      V.log.map(function (l) {
+        return '<div class="panel" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;gap:10px"><b>সংস্করণ ' + esc(l.v) + '</b><span class="muted">' + dmy(l.d) + '</span></div><ul style="margin:6px 0 0;padding-left:20px">' +
+          l.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
+      }).join('') + '<div class="mfoot"><button class="btn soft" type="button" data-act="closeModal">বন্ধ করুন</button></div>');
+  }
+  function closeMenu() { $('app').classList.remove('menu-open'); }
   function closeModal() { $('modalHost').innerHTML = ''; document.body.classList.remove('pr-voucher'); }
   $('modalHost').addEventListener('click', function (e) { if (e.target.id === 'mv') closeModal(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && $('modalHost').innerHTML) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { if ($('modalHost').innerHTML) closeModal(); else closeMenu(); } });
   window.addEventListener('afterprint', function () { document.body.classList.remove('pr-voucher'); });
 
   /* ---------- চার্ট ---------- */
@@ -133,7 +143,7 @@
     var newN = db.orders.filter(function (o) { return o.status === 'new'; }).length;
     var low = db.products.filter(function (p) { return p.active !== false && p.stock <= 3; });
     var recent = db.orders.slice(0, 5);
-    var html = chipsHtml([['today', 'আজ'], ['week', 'গত ৭ দিন'], ['month', 'এই মাস'], ['all', 'সব সময়']], st.period, 'period') +
+    var html = chipsHtml([['today', 'আজ'], ['week', 'গত 7 দিন'], ['month', 'এই মাস'], ['all', 'সব সময়']], st.period, 'period') +
       '<div class="stack"><div class="kpis">' +
       '<div class="kpi"><span>বিক্রয় (ডেলিভারড)</span><b>' + tk(R.delivered.revenue) + '</b><small>' + bn(R.delivered.count) + 'টি অর্ডার</small></div>' +
       '<div class="kpi ' + (R.net >= 0 ? 'good' : 'bad') + '"><span>নেট লাভ</span><b>' + tk(R.net) + '</b><small>খরচ বাদে</small></div>' +
@@ -223,7 +233,7 @@
     var cats = Object.keys(R.expenses.byCat).map(function (c) { return row(esc(c), tk(R.expenses.byCat[c])); }).join('');
     var prods = R.byProduct.map(function (p) { return '<tr><td>' + esc(p.name) + '</td><td class="r">' + bn(p.qty) + '</td><td class="r">' + tk(p.revenue) + '</td><td class="r ' + (p.profit >= 0 ? 'pos' : 'neg') + '">' + tk(p.profit) + '</td></tr>'; }).join('');
     var html = '<div class="panel noprint" style="margin-bottom:14px"><div class="grid2"><label class="field">শুরুর তারিখ<input type="date" id="rf" value="' + esc(st.rf) + '"></label><label class="field">শেষ তারিখ<input type="date" id="rt" value="' + esc(st.rt) + '"></label></div>' +
-      '<div class="chips" style="margin:10px 0 0"><button class="chip" type="button" data-act="rrange" data-v="today">আজ</button><button class="chip" type="button" data-act="rrange" data-v="week">গত ৭ দিন</button><button class="chip" type="button" data-act="rrange" data-v="month">এই মাস</button><button class="chip" type="button" data-act="rrange" data-v="year">এই বছর</button><button class="chip" type="button" data-act="rrange" data-v="all">সব সময়</button></div></div>' +
+      '<div class="chips" style="margin:10px 0 0"><button class="chip" type="button" data-act="rrange" data-v="today">আজ</button><button class="chip" type="button" data-act="rrange" data-v="week">গত 7 দিন</button><button class="chip" type="button" data-act="rrange" data-v="month">এই মাস</button><button class="chip" type="button" data-act="rrange" data-v="year">এই বছর</button><button class="chip" type="button" data-act="rrange" data-v="all">সব সময়</button></div></div>' +
       '<div class="stack"><div class="kpis"><div class="kpi"><span>মোট আয়</span><b>' + tk(D.revenue) + '</b></div><div class="kpi"><span>মোট লাভ</span><b>' + tk(D.gross) + '</b><small>খরচের আগে</small></div><div class="kpi ' + (R.net >= 0 ? 'good' : 'bad') + '"><span>নেট লাভ</span><b>' + tk(R.net) + '</b><small>খরচ বাদে</small></div></div>' +
       '<div class="two"><div class="panel"><h2>লাভ-ক্ষতির হিসাব</h2><div class="scroll"><table class="t"><tbody>' +
       row('ডেলিভারড অর্ডার', bn(D.count) + 'টি (' + bn(D.qty) + ' পিস)') + row('পণ্য বিক্রয়', tk(D.items)) + row('(−) ছাড়', tk(D.discount)) + row('(+) ডেলিভারি চার্জ আয়', tk(D.delivery)) +
@@ -242,13 +252,13 @@
     var S = st.db.settings;
     function f(k, label, extra, type) { return '<label class="field" for="s_' + k + '">' + label + '<input id="s_' + k + '" type="' + (type || 'text') + '" value="' + esc(S[k]) + '">' + (extra ? '<small>' + extra + '</small>' : '') + '</label>'; }
     var html = '<form id="sf" class="stack" novalidate><div class="panel"><div class="sec">দোকানের তথ্য</div><div class="grid2">' + f('shopName', 'দোকানের নাম') + f('tagline', 'ট্যাগলাইন') + f('address', 'ঠিকানা', 'ভাউচার ও ওয়েবসাইটে দেখাবে') + '</div></div>' +
-      '<div class="panel"><div class="sec">যোগাযোগ ও WhatsApp</div><div class="grid2">' + f('phone1', 'ফোন নম্বর ১') + f('phone2', 'ফোন নম্বর ২') +
-      f('whatsappNumber', 'WhatsApp নম্বর', 'যেমন ০১৮৪৪৫৩১৩৬২। অর্ডার ও মেসেজ এই নম্বরে যাবে') + f('whatsappLink', 'WhatsApp লিংক (ঐচ্ছিক)', 'গ্রুপ বা চ্যানেলের লিংক। নম্বর থাকলে নম্বরই ব্যবহার হবে') + f('facebookUrl', 'ফেসবুক পেজের লিংক') + '</div></div>' +
+      '<div class="panel"><div class="sec">যোগাযোগ ও WhatsApp</div><div class="grid2">' + f('phone1', 'ফোন নম্বর 1') + f('phone2', 'ফোন নম্বর 2') +
+      f('whatsappNumber', 'WhatsApp নম্বর', 'যেমন 01844531362। অর্ডার ও মেসেজ এই নম্বরে যাবে') + f('whatsappLink', 'WhatsApp লিংক (ঐচ্ছিক)', 'গ্রুপ বা চ্যানেলের লিংক। নম্বর থাকলে নম্বরই ব্যবহার হবে') + f('facebookUrl', 'ফেসবুক পেজের লিংক') + '</div></div>' +
       '<div class="panel"><div class="sec">অর্ডারের ইমেইল</div><div class="grid2">' + f('notifyEmail', 'যে ইমেইলে অর্ডারের খবর যাবে', 'ফাঁকা রাখলে Apps Script যে Google অ্যাকাউন্টে বানানো, সেখানে যাবে', 'email') + '</div></div>' +
-      '<div class="panel"><div class="sec">ডেলিভারি</div><div class="grid2">' + f('localArea', 'নিজের এলাকার নাম', 'যেমন রাজশাহী') + f('deliveryLocal', 'নিজের এলাকায় ডেলিভারি চার্জ (৳)', '', 'number') + f('deliveryOutside', 'অন্য জেলায় ডেলিভারি চার্জ (৳)', '', 'number') + f('freeDeliveryMin', 'এত টাকার বেশি কিনলে ফ্রি ডেলিভারি (৳)', '০ দিলে বন্ধ', 'number') + f('codNote', 'ক্যাশ অন ডেলিভারি নোট') + '</div></div>' +
+      '<div class="panel"><div class="sec">ডেলিভারি</div><div class="grid2">' + f('localArea', 'নিজের এলাকার নাম', 'যেমন রাজশাহী') + f('deliveryLocal', 'নিজের এলাকায় ডেলিভারি চার্জ (৳)', '', 'number') + f('deliveryOutside', 'অন্য জেলায় ডেলিভারি চার্জ (৳)', '', 'number') + f('freeDeliveryMin', 'এত টাকার বেশি কিনলে ফ্রি ডেলিভারি (৳)', '0 দিলে বন্ধ', 'number') + f('codNote', 'ক্যাশ অন ডেলিভারি নোট') + '</div></div>' +
       '<div class="panel"><div class="sec">হোমপেজ ও ভাউচার</div><div class="grid2">' + f('heroTitle', 'হোমপেজের বড় লেখা') + '<label class="field" for="s_heroText">হোমপেজের বিবরণ<textarea id="s_heroText" rows="3">' + esc(S.heroText) + '</textarea></label>' + f('voucherNote', 'ভাউচারের নিচের ধন্যবাদ লেখা') + '</div></div>' +
       '<div class="err" id="serr"></div><div><button class="btn" type="submit">সেটিংস সংরক্ষণ করুন</button></div></form>' +
-      '<div class="two" style="margin-top:14px"><form id="pf" class="panel stack" novalidate><div class="sec">পাসওয়ার্ড পরিবর্তন</div><label class="field" for="np">নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)<input id="np" type="password" autocomplete="new-password"></label><label class="field" for="np2">আবার লিখুন<input id="np2" type="password" autocomplete="new-password"></label><div class="err" id="perr"></div><div><button class="btn" type="submit">পাসওয়ার্ড বদলান</button></div></form>' +
+      '<div class="two" style="margin-top:14px"><form id="pf" class="panel stack" novalidate><div class="sec">পাসওয়ার্ড পরিবর্তন</div><label class="field" for="np">নতুন পাসওয়ার্ড (কমপক্ষে 6 অক্ষর)<input id="np" type="password" autocomplete="new-password"></label><label class="field" for="np2">আবার লিখুন<input id="np2" type="password" autocomplete="new-password"></label><div class="err" id="perr"></div><div><button class="btn" type="submit">পাসওয়ার্ড বদলান</button></div></form>' +
       '<div class="panel stack"><div class="sec">ডেটা ব্যাকআপ</div><p class="hint" style="margin:0">সব পণ্য, অর্ডার, ক্রয় ও খরচ একটি ফাইলে ডাউনলোড হবে। ডেটা মূল জায়গায় আপনার Google Sheet-এও থাকে।</p><div><button class="btn ghost" type="button" data-act="backup">ব্যাকআপ ডাউনলোড</button></div>' +
       '<p class="hint" style="margin:0">মোড: <b>' + (st.db.mode === 'demo' ? 'ডেমো (এই ব্রাউজারে)' : 'লাইভ (Google Sheet)') + '</b></p></div></div>';
     return { title: 'সেটিংস', html: html, after: function () {
@@ -270,7 +280,7 @@
 
   function renderApp() {
     var nNew = st.db.orders.filter(function (o) { return o.status === 'new'; }).length;
-    $('sName').textContent = st.db.settings.shopName;
+    $('sName').textContent = st.db.settings.shopName; $('mName').textContent = st.db.settings.shopName;
     document.title = st.db.settings.shopName + ' অ্যাডমিন';
     $('nav').innerHTML = NAV.map(function (n) {
       return '<button type="button" data-act="nav" data-v="' + n[0] + '"' + (st.view === n[0] ? ' aria-current="page"' : '') + '>' + ic(n[2]) + '<span>' + n[1] + '</span>' +
@@ -279,6 +289,7 @@
     var out = (VIEWS[st.view] || VIEWS.dash)();
     $('vtitle').textContent = out.title; $('vacts').innerHTML = out.acts || ''; $('view').innerHTML = out.html;
     $('demo').hidden = st.db.mode !== 'demo';
+    if (window.GM_VERSION) $('verBtn').textContent = 'সংস্করণ ' + GM_VERSION.version + ' · ' + dmy(GM_VERSION.date);
     if (out.after) out.after();
   }
   function go(v) { st.view = VIEWS[v] ? v : 'dash'; if (st.db) { renderApp(); window.scrollTo(0, 0); } }
@@ -340,7 +351,7 @@
     openModal('নতুন ক্রয়', '<form id="mf" class="stack" novalidate><div class="grid2"><label class="field" for="bd">তারিখ<input id="bd" type="date" value="' + today() + '"></label>' +
       '<label class="field" for="bp">পণ্য<select id="bp">' + P.map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.name) + ' (স্টক ' + bn(p.stock) + ')</option>'; }).join('') + '</select></label>' +
       '<label class="field" for="bq">পরিমাণ<input id="bq" type="number" min="1" step="1" value="1"></label><label class="field" for="bc">একক ক্রয়মূল্য (৳)<input id="bc" type="number" min="0" step="any"></label>' +
-      '<label class="field" for="bs">সরবরাহকারী<input id="bs"></label><label class="field" for="bn">নোট<input id="bn"></label></div><div class="tot"><div class="g"><span>মোট</span><span id="bt">৳০</span></div></div>' +
+      '<label class="field" for="bs">সরবরাহকারী<input id="bs"></label><label class="field" for="bn">নোট<input id="bn"></label></div><div class="tot"><div class="g"><span>মোট</span><span id="bt">৳0</span></div></div>' +
       '<div class="err" id="merr"></div><div class="mfoot"><button class="btn soft" type="button" data-act="closeModal">বাতিল</button><button class="btn" type="submit">ক্রয় যোগ করুন</button></div></form>');
     function pre() { var p = find(P, $('bp').value); if (p) $('bc').value = p.cost || ''; tot(); }
     function tot() { $('bt').textContent = tk(GM.num($('bq').value) * GM.num($('bc').value)); }
@@ -497,7 +508,10 @@
     var b = e.target.closest('[data-act]'); if (!b) return;
     var a = b.getAttribute('data-act'), id = b.getAttribute('data-id'), v = b.getAttribute('data-v');
     switch (a) {
-      case 'nav': location.hash = v; go(v); break;
+      case 'nav': closeMenu(); location.hash = v; go(v); break;
+      case 'about': aboutModal(); break;
+      case 'menu': $('app').classList.toggle('menu-open'); break;
+      case 'closeMenu': closeMenu(); break;
       case 'logout': logout(); break;
       case 'closeModal': closeModal(); break;
       case 'period': st.period = v; renderApp(); break;
